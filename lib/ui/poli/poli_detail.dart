@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klinik_app/model/Poli.dart';
+import 'package:klinik_app/ui/poli/poli_page.dart';
+import 'package:klinik_app/ui/poli/poli_update.dart';
 
 class PoliDetail extends StatefulWidget {
   final Poli data;
@@ -35,20 +37,59 @@ class _PoliDetailState extends State<PoliDetail> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                  onPressed: () {},
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
-                  child: const Text("UBAH")),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text("HAPUS"))
-            ],
+            children: [_tombolUbah(), _tombolHapus()],
           )
         ],
       ),
     );
+  }
+
+  _tombolUbah() {
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PoliUpdate(poli: widget.data),
+              ));
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
+        child: const Text("UBAH"));
+  }
+
+  _tombolHapus() {
+    return ElevatedButton(
+        onPressed: () {
+          AlertDialog alertDialog = AlertDialog(
+            content: Text("Yakin ingin menghapus?"),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Batal"),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PoliPage(),
+                      ));
+                },
+                child: Text("Yakin"),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              ),
+            ],
+          );
+          showDialog(
+            context: context,
+            builder: (context) => alertDialog,
+          );
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+        child: const Text("HAPUS"));
   }
 }

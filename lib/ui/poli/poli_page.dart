@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:klinik_app/model/Poli.dart';
 import 'package:klinik_app/ui/poli/poli_detail.dart';
+import 'package:klinik_app/ui/poli/poli_form.dart';
+import 'package:klinik_app/ui/poli/poli_item.dart';
 
 class PoliPage extends StatefulWidget {
   const PoliPage({super.key});
@@ -23,42 +25,20 @@ class _PoliPageState extends State<PoliPage> {
       ),
       body: ListView(
         children: [
-          GestureDetector(
-            child: const Card(
-              child: ListTile(
-                title: Text("Poli Anak"),
-                leading: Icon(Icons.child_care),
-              ),
-            ),
-            onTap: () {
-              Poli poliAnak = Poli(id: "1", namaPoli: "Poli Anak");
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PoliDetail(
-                      data: poliAnak,
-                    ),
-                  ));
-            },
-          ),
-          GestureDetector(
-            child: const Card(
-              child: ListTile(
-                title: Text("Poli Kandungan"),
-              ),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Poli Gigi"),
-            ),
-          ),
-          Card(
-            child: ListTile(
-              title: Text("Poli THT"),
-            ),
-          )
+          PoliItem(data: Poli(namaPoli: "M. Iqbal Alifudin")),
+          PoliItem(data: Poli(namaPoli: "Poli Gigi")),
+          PoliItem(data: Poli(namaPoli: "Poli Umum")),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PoliForm(),
+              ));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
