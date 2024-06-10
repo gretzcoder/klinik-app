@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:klinik_app/services/login_service.dart';
+import 'package:klinik_app/ui/beranda.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -87,8 +89,36 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {}
+        onPressed: () async {
+          if (_formKey.currentState!.validate()) {
+            String username = _usernameCtrl.text;
+            String password = _passwordCtrl.text;
+
+            await LoginService().login(username, password).then((value) {
+              if (value) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Beranda(),
+                    ));
+              } else {
+                AlertDialog alertDialog = AlertDialog(
+                  content: Text("Username atau Password Salah!"),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Oke"))
+                  ],
+                );
+                showDialog(
+                  context: context,
+                  builder: (context) => alertDialog,
+                );
+              }
+            });
+          }
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue[400], foregroundColor: Colors.white),

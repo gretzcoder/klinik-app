@@ -4,6 +4,7 @@ import 'package:klinik_app/model/Poli.dart';
 import 'package:klinik_app/ui/poli/poli_detail.dart';
 import 'package:klinik_app/ui/poli/poli_form.dart';
 import 'package:klinik_app/ui/poli/poli_item.dart';
+import 'package:klinik_app/ui/sidebar.dart';
 
 class PoliPage extends StatefulWidget {
   const PoliPage({super.key});
@@ -16,12 +17,13 @@ class _PoliPageState extends State<PoliPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Sidebar(),
       appBar: AppBar(
         title: const Text(
           "Data Poli",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.blue,
       ),
       body: ListView(
         children: [
