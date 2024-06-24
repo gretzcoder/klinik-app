@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:klinik_app/model/Poli.dart';
+import 'package:klinik_app/services/poli_service.dart';
 import 'package:klinik_app/ui/poli/poli_page.dart';
 import 'package:klinik_app/ui/poli/poli_update.dart';
 
@@ -71,13 +72,17 @@ class _PoliDetailState extends State<PoliDetail> {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PoliPage(),
-                      ));
+                  await PoliService()
+                      .hapus(widget.data.id.toString())
+                      .then((value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PoliPage(),
+                        ));
+                  });
                 },
                 child: Text("Yakin"),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
